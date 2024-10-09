@@ -24,7 +24,31 @@ void show_map_of_lists(const std::map<K, std::list<V>>& mymap) {
 }
 	
 void comp_conexas(map<int,list<int>> &G, list<list<int>> &D){
-	
+	list<int>aux;
+	bool condicion = false;
+	for (const auto& pair : G){
+		auto it = aux.begin();
+		while(it != aux.end()){
+			if(*it==pair.first) condicion = true;
+			it++;
+		}
+		if(!condicion)aux.push_back(pair.first);
+		else {
+			D.push_back(aux);
+			aux.erase(aux.begin(), aux.end());
+			aux.push_back(pair.first);
+			condicion = false;
+		}
+		it = aux.begin();
+		auto it2 = pair.second.begin();
+		auto end = pair.second.end();
+		while(it2 != end){
+			while(it != aux.end()){
+				
+			}
+			it2++;
+		}
+	}
 }
 
 int main() {
@@ -42,14 +66,6 @@ int main() {
 	list<int> L4 = {2, 4, 1};    // Camino no válido
 	list<int> L5 = {1, 3, 4, 5};  // Camino válido
 	list<int> L6 = {1, 5};        // Camino no válido
-	
-	// Probar los caminos
-	cout << "L1 es camino: " << es_camino(G, L1) << endl; // Debería imprimir 1
-	cout << "L2 es camino: " << es_camino(G, L2) << endl; // Debería imprimir 0
-	cout << "L3 es camino: " << es_camino(G, L3) << endl; // Debería imprimir 1
-	cout << "L4 es camino: " << es_camino(G, L4) << endl; // Debería imprimir 0
-	cout << "L5 es camino: " << es_camino(G, L5) << endl; // Debería imprimir 1
-	cout << "L6 es camino: " << es_camino(G, L6) << endl; // Debería imprimir 0
 	
 	return 0;
 }
