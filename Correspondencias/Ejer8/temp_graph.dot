@@ -1,0 +1,15 @@
+digraph h {
+aaaab[label="0"]
+aaaac[label="1"]
+aaaad[label="2"]
+aaaba[label="3"]
+aaabb[label="4"]
+aaabc[label="5"]
+aaabd[label="6"]
+aaaca[label="7"]
+aaaab->aaaac[arrowhead=none]
+aaaac->aaaad[arrowhead=none]
+aaaba->aaabb[arrowhead=none]
+aaabb->aaabc[arrowhead=none]
+aaabd->aaaca[arrowhead=none]
+}
