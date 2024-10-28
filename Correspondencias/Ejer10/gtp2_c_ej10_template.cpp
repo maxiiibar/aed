@@ -2,10 +2,8 @@
 #include <list>
 #include <map>
 #include <set>
-#include <graphviz.hpp>
 #include <algorithm>
 
-using namespace aed;
 using namespace std;
 
 typedef map<int, list<int>> graph;
@@ -64,7 +62,6 @@ int main() {
 		{6, {5, 7}},
 	{7, {6}}
 	};
-	graph2dot(G);
 	list<list<int>> D = distancia(G, 1);
 	printList(D);
 	return 0;
