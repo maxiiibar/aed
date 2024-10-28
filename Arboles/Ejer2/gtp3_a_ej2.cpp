@@ -16,9 +16,8 @@ void show_list(const list<T> &L){
 	
 void altura(tree<int> &arbol, tree<int>::iterator it, int prof, int &alt)
 {
-	if (it == arbol.end())return;
-
-	tree<int>::iterator c = it.lchild();
+	if(it == arbol.end()) return;
+	auto c = it.lchild();
 	
 	while (c != arbol.end()) {
 		altura(arbol, c++, prof+1, alt);
@@ -31,94 +30,71 @@ void altura(tree<int> &arbol, tree<int>::iterator it, int prof, int &alt)
 
 void contar_hojas(tree<int> &arbol, tree<int>::iterator it, int &n_hojas)
 {	
-	if (it == arbol.end())
-	{					
+	if(it == arbol.end()) return;
+	auto c = it.lchild();
+	
+	if(c == arbol.end()){
+		n_hojas++;
 		return;
 	}
 	
-	tree<int>::iterator c = it.lchild();
-	if (c == arbol.end())
-		n_hojas++;
-	
-	while (c != arbol.end()) {
-		contar_hojas(arbol, c, n_hojas);
-		c++;
-	}	
+	while(c != arbol.end()) contar_hojas(arbol, c++, n_hojas);
 }
 
 void etiqueta_maxima(tree<int> &arbol, tree<int>::iterator it, int &et_max)
 {
-	if (it == arbol.end())
-	{					
-		return;
-	}
+	if (it == arbol.end()) return;
+	if (*it > et_max) et_max = *it;
 	
-	if (*it > et_max)
-		et_max = *it;
+	auto c = it.lchild();
 	
-	tree<int>::iterator c = it.lchild();
-	
-	while (c != arbol.end()) {
-		etiqueta_maxima(arbol, c, et_max);
-		c++;
-	}	
+	while(c != arbol.end()) etiqueta_maxima(arbol, c++, et_max);
 }
 
 void etiqueta_maxima_par(tree<int> &arbol, tree<int>::iterator it, int &et_max)
 {
-	if (it == arbol.end())
-	{					
-		return;
+	if (it == arbol.end()) return;
+	if ((*it) % 2 == 0) {
+		if (*it > et_max) et_max = *it;
 	}
 	
-	if (*it > et_max && *it%2 == 0)
-		et_max = *it;
+	auto c = it.lchild();
 	
-	tree<int>::iterator c = it.lchild();
-	
-	while (c != arbol.end()) {
-		etiqueta_maxima_par(arbol, c, et_max);
-		c++;
-	}	
+	while(c != arbol.end()) etiqueta_maxima_par(arbol, c++, et_max);
 }
 
 
 
 void suma_etiquetas(tree<int> &arbol, tree<int>::iterator it, int &suma)
 {
-	suma += *it;
-	if (it == arbol.end())
-	{					
-		return;
-	}
-	tree<int>::iterator c = it.lchild();
+	if (it == arbol.end()) return;
+	suma+=*it;
 	
-	while (c != arbol.end()) {		
-		suma_etiquetas(arbol, c, suma);	
-		c++;
-	}	
+	auto c = it.lchild();
 	
+	while(c != arbol.end()) suma_etiquetas(arbol, c++, suma);
 }
 
 
 void purge_odd(tree<int> &arbol, tree<int>::iterator it )
 {		
-	while (it != arbol.end())
-	{
-		if(*it%2){ 			
-			it = arbol.erase(it);
+	cout<<"it: "<<*it<<endl;
+	if (it == arbol.end()) return;
+	if ((*it) % 2 != 0) {
+		cout<<*it<< " es impar"<<endl;
+		cout<<(arbol.erase(it) == arbol.end())<<endl;
+		cout<<"buenas"<<endl;
+	}
+	else{
+		auto c = it.lchild();
+		
+		while(c != arbol.end()) {
+			cout<<"Entre al while de it="<<*it<<", con c="<<*c<<endl;
+			purge_odd(arbol, c++);
 		}
-		else {
-			auto it2 = it.lchild();
-			if (it2 != arbol.end())
-			{
-				purge_odd(arbol,it2);				
-			}
-			it++;	
-		}		
+		cout<<"Salí del while it="<<*it<<endl;
 	}
 }
-
 	
 int main()
 	{			
@@ -153,7 +129,7 @@ int main()
 	cout << "et_max: "<<et_max<< endl;
 	cout << "et_max_par: "<<et_max_par<< endl;
 	cout << "suma: "<<suma<< endl;
-	
+	cout<<endl<<endl;
 	purge_odd(arbol, arbol.begin());	
 	tree2dot(arbol,"arbol_sin_impares");	
 	
