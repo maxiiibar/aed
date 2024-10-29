@@ -18,7 +18,8 @@ current_source=program.cpp
 path_char=\
 [source]
 path=program.cpp
-cursor=28:86
+cursor=47:1
+marker=43
 open=true
 [header]
 path=eval.hpp
